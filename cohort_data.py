@@ -102,18 +102,25 @@ def hogwarts_by_house(filename):
         name = words[1]
         if words[2] == "Dumbledore's Army":
             dumbledores_army.append(name)
+            dumbledores_army.sort()
         elif words[2] == "Gryffindor":
             gryffindor.append(name)
+            gryffindor.sort()
         elif words[2] == "Hufflepuff":
             hufflepuff.append(name)
+            hufflepuff.sort()
         elif words[2] == "Ravenclaw":
             ravenclaw.append(name)
+            ravenclaw.sort()
         elif words[2] == "Slytherin":
             slytherin.append(name)
+            slytherin.sort()
         elif words[-1] == "G":
             ghosts.append(name)
+            ghosts.sort()
         elif words[-1] == "I":
             instructors.append(name)
+            instructors.sort()
 
     all_hogwarts = [dumbledores_army, gryffindor, hufflepuff, ravenclaw, slytherin, ghosts, instructors]
     return all_hogwarts
@@ -134,10 +141,21 @@ def all_students_tuple_list(filename):
 
     student_list = []
 
-    # Code goes here
+    house_file = open(filename)
 
+    for line in house_file:
+        line = line.rstrip()
+        words = line.split("|")
+        name = words[0] + " " + words[1]
+        house = words[2]
+        instructor = words[3]
+        cohort = words[4]
+        person = (name, house, instructor, cohort)
+        if cohort != "G" and cohort != "I":
+            student_list.append(person)
+
+    #return person
     return student_list
-
 
 def find_cohort_by_student_name(student_list):
     """TODO: Given full name, return student's cohort.
